@@ -1,0 +1,26 @@
+## class - 2
+
+Agenta
+- ip address
+- subnet mast
+- ip classes
+- network vs host
+- broadcast address
+- no of host, valid/useable host
+
+ IPv4 Address. . . . . . . . . . . : 192.168.225.188
+ Subnet Mask . . . . . . . . . . . : 255.255.255.0
+                                     -----------|---
+                                     networkpart hostpart
+ Broadcast address: 192.168.225.255
+
+
+192.168.255.171
+192.168.255 -> this is 'Network IP' / 'Newtwork Address (kun network e ei device ta ase)'
+           171 -> this is 'Host IP' / 'Host address'
+
+
+ip address 32bit -> IPv4, octet, unique ip 2^32 = 4.3B
+
+local area network, LAN 
+192.168.0.1 - dot decimal notation
