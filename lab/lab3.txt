@@ -1,0 +1,19 @@
+topics of discussion
+ 1. DHCP
+ 2. DHCP Aplimentation
+ 3. RRouting
+ 4. Satatic vs Dynamic
+ 5. Satatic Routing Implementation
+
+static ip configeraton:
+- manualy ip set to every device
+- in a org if the device are not changed then there is static ip configeration
+
+Dynamic (auto ip is set)
+DHCP - dynamic host configaration 
+if new devices connects or gets logout then dynamic DHCP 
+
+
+bakita katai ase basai jaya leko
+@armanhossen-dev 
+
