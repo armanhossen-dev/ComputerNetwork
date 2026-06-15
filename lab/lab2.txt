@@ -1,0 +1,25 @@
+//understanding the commands and meanings
+enable or en
+configure terminal  or  conf t
+
+interface gig0/0  or   int gig0/0 // ip bosabo ku interface e ip bosabo seta bujai te si
+
+ip address 192.168.10.1 255.255.255.0
+address or add, but i tried add sometimes not working i think so i should use address
+
+no shutdown  //means on kora 
+no shutdown or no shut
+
+shutdown // off kore
+
+//final command for router cli for two connections
+
+en
+conf t
+int gig0/0
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+
+int gig0/1
+ip address 192.168.20.1 255.255.255.0
+no shutdown
