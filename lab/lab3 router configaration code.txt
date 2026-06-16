@@ -40,7 +40,7 @@ no shut
 
 int gig0/1
 ip address 20.0.0.2 255.0.0.0
-no shut.
+no shut
 
 
 
