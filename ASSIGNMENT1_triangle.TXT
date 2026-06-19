@@ -1,0 +1,180 @@
+// Router0 (Top Router)
+en
+conf t
+hostname Router0
+
+int gig0/0
+ip address 172.10.0.1 255.255.255.192
+no shut
+
+int gig0/2
+ip address 172.10.0.113 255.255.255.252
+no shut
+
+int gig0/1
+ip address 172.10.0.121 255.255.255.252
+no shut
+
+exit
+
+
+// Router1 (Left Router)
+en
+conf t
+hostname Router1
+
+int gig0/0
+ip address 172.10.0.65 255.255.255.224
+no shut
+
+int gig0/1
+ip address 172.10.0.114 255.255.255.252
+no shut
+
+int gig0/2
+ip address 172.10.0.117 255.255.255.252
+no shut
+
+exit
+
+
+// Router2 (Right Router)
+en
+conf t
+
+int gig0/1
+ip address 172.10.0.97 255.255.255.240
+no shut
+
+int gig0/2
+ip address 172.10.0.118 255.255.255.252
+no shut
+
+int gig0/0
+ip address 172.10.0.122 255.255.255.252
+no shut
+
+exit
+
+
+DHCP Configuration
+// On Router0 (Top Router)
+ip dhcp pool lan1
+network 172.10.0.0 255.255.255.192
+default-router 172.10.0.1
+dns-server 8.8.8.8
+
+
+// On Router1 (Left Router)
+ip dhcp pool lan2
+network 172.10.0.64 255.255.255.224
+default-router 172.10.0.65
+dns-server 8.8.8.8
+
+
+// On Router2 (Right Router)
+ip dhcp pool lan3
+network 172.10.0.96 255.255.255.240
+default-router 172.10.0.97
+dns-server 8.8.8.8
+
+
+
+
+
+en
+conf t
+
+! 1. Configure the interface facing the switch
+interface GigabitEthernet0/0
+ip address 172.10.0.97 255.255.255.240
+no shutdown
+exit
+
+! 2. Create the DHCP pool for LAN 3
+ip dhcp pool lan3
+network 172.10.0.96 255.255.255.240
+default-router 172.10.0.97
+dns-server 8.8.8.8
+exit
+end
+write memory
+
+
+
+
+
+
+// Router0 Static Routing
+en
+conf t
+ip route 172.10.0.64 255.255.255.224 172.10.0.114
+ip route 172.10.0.96 255.255.255.240 172.10.0.122
+ip route 172.10.0.116 255.255.255.252 172.10.0.114
+
+
+// Router1 Static Routing
+en
+conf t
+ip route 172.10.0.0 255.255.255.192 172.10.0.113
+ip route 172.10.0.96 255.255.255.240 172.10.0.118
+ip route 172.10.0.120 255.255.255.252 172.10.0.118
+
+
+// Router2 Static Routing
+en
+conf t
+ip route 172.10.0.0 255.255.255.192 172.10.0.121
+ip route 172.10.0.64 255.255.255.224 172.10.0.117
+ip route 172.10.0.112 255.255.255.252 172.10.0.117
+
+
+
+
+
+
+enable
+configure terminal
+
+hostname Router4
+
+! --- 1. DHCP Pool Configuration for LAN 3 ---
+! Exclude the gateway IP so it isn't assigned to a PC
+ip dhcp excluded-address 172.10.0.97
+ip dhcp pool LAN3_POOL
+ network 172.10.0.96 255.255.255.240
+ default-router 172.10.0.97
+ dns-server 8.8.8.8
+ exit
+
+! --- 2. Interface Configurations ---
+! Interface facing LAN 3 (Blue box)
+interface GigabitEthernet0/0
+ ip address 172.10.0.97 255.255.255.240
+ no shutdown
+ exit
+
+! Horizontal Link facing Router1
+interface GigabitEthernet0/1
+ ip address 172.10.0.118 255.255.255.252
+ no shutdown
+ exit
+
+! Diagonal Link facing Router0 (Center)
+interface GigabitEthernet0/2
+ ip address 172.10.0.121 255.255.255.252
+ no shutdown
+ exit
+
+! --- 3. OSPF Routing Configuration ---
+router ospf 1
+ network 172.10.0.96 255.255.255.240 area 0
+ network 172.10.0.116 255.255.255.252 area 0
+ network 172.10.0.120 255.255.255.252 area 0
+ exit
+
+end
+write memory+
+
+
+but the 3rd router's end device has problem with the ip in dhcp
