@@ -1,0 +1,100 @@
+dynamic routing in cisco packet tracr, 
+
+router1________________
+
+en
+conf t 
+int gig0/0
+ip add 192.168.10.1 255.255.255.192
+no shut
+
+int gig0/1
+ip add 192.168.10.193 255.255.255.252
+no shut
+
+ip dhcp pool lan1
+network 192.168.10.0 255.255.255.192
+default-router 192.168.10.1
+
+
+----------------------------------------
+
+router2________________
+
+en
+conf t 
+int gig0/0
+ip add 192.168.10.65 255.255.255.192
+no shut
+
+int gig0/1
+ip add 192.168.10.194 255.255.255.252
+no shut
+
+int gig0/2
+ip add 192.168.10.197 255.255.255.252
+no shut
+
+ip dhcp pool lan2
+network 192.168.10.64 255.255.255.192
+default-router 192.168.10.65
+
+----------------------------------------
+
+router3________________
+
+en
+conf t 
+int gig0/0
+ip add 192.168.10.129 255.255.255.192
+no shut
+
+int gig0/1
+ip add 192.168.10.198 255.255.255.252
+no shut
+
+ip dhcp pool lan3
+network 192.168.10.128 255.255.255.192
+default-router 192.168.10.129
+
+
+dynamic routing 
+
+router1_________________
+en 
+conf t 
+
+router rip
+version 2
+no auto summary
+network 192.168.10.0
+network 192.168.10.192
+
+router2_________________
+en 
+conf t 
+
+router rip
+version 2
+no auto summary
+network 192.168.10.64
+network 192.168.10.192
+network 192.168.10.196
+
+router3_________________
+en 
+conf t 
+
+router rip
+version 2
+no auto summary
+network 192.168.10.128
+network 192.168.10.196
+
+
+//// testing
+exit 
+exit
+show ip route
+
+ping test
