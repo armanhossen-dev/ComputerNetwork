@@ -97,4 +97,4 @@ exit
 exit
 show ip route
 
-ping test
+ping test kori!!!
