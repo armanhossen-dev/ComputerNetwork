@@ -10,6 +10,6 @@ Day 2
 Day 3
 ![](https://raw.githubusercontent.com/armanhossen-dev/ComputerNetwork/refs/heads/main/lab/lab3.jpeg)   
 Day 4
-![](https://raw.githubusercontent.com/armanhossen-dev/ComputerNetwork/refs/heads/main/lab/lab4.jpeg)   
+![](https://raw.githubusercontent.com/armanhossen-dev/ComputerNetwork/refs/heads/main/lab/lab4final.jpeg)   
 
 <!--- # all class explanation will be [here]() (in future) -->
