@@ -17,3 +17,53 @@ network <CONNECTED_NETWORK_2>
 
 ...
 # Add one 'network' command for every directly connected network.
+
+
+// practice 
+
+//router 1______________
+en
+conf t 
+
+int gig0/0
+ip add 192.168.30.1 255.255.255.0
+no shut 
+
+interface gig0/1
+ip address 192.168.50.1 255.255.255.0
+no shutdown
+
+ip dhcp pool net1
+network 192.168.30.0 255.255.255.0
+default-router 192.168.30.1
+dns-server 8.8.8.8
+
+router rip
+version 2
+no auto summary 
+network 192.168.30.0
+network 192.168.50.0
+
+
+//router 2______________
+en
+conf t 
+
+int gig0/0
+ip add 192.168.40.1 255.255.255.0
+no shut 
+
+interface gig0/1
+ip address 192.168.50.2 255.255.255.0
+no shutdown
+
+ip dhcp pool net2
+network 192.168.40.0 255.255.255.0
+default-router 192.168.40.1
+dns-server 8.8.8.8
+
+router rip
+version 2
+no auto summary 
+network 192.168.40.0
+network 192.168.50.0

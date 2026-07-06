@@ -8,3 +8,12 @@ network <NETWORK_ADDRESS> <SUBNET_MASK>
 
 default-router <GATEWAY_IP>
 # Gateway assigned to clients
+
+// practice
+# dhcp configuration
+
+conf t 
+ip dhcp pool lanNameOrPoolName
+network netwrok_address network_address_subnet_mask
+default-router first_host_of_the_netwrok
+dns-server 8.8.8.8
