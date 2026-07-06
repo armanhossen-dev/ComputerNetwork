@@ -1,0 +1,209 @@
+Questions & Answers
+
+✅ Problem 1 (Easy)
+
+Configure:
+    G0/0
+    IP Address
+    Enable Interface
+    DHCP Pool LAB1
+    Default Gateway
+
+Answer: 
+    en
+    conf t
+
+    int g0/0
+    ip add <IP_ADDRESS> <SUBNET_MASK>
+    no shut
+
+    ip dhcp pool LAB1
+    network <NETWORK_ADDRESS> <SUBNET_MASK>
+    default-router <GATEWAY_IP>
+
+
+
+✅ Problem 2
+Fill in the blanks
+    en
+    ___________
+
+    int g0/0
+
+    ___________
+
+    ___________
+
+Answer
+    en
+    conf t
+
+    int g0/0
+
+    ip add <IP_ADDRESS> <SUBNET_MASK>
+
+    no shut
+
+
+✅ Problem 3
+    Configure RIP
+
+Answer
+    router rip
+    version 2
+    no auto-summary
+    network <NETWORK_1>
+    network <NETWORK_2>
+
+
+✅ Problem 4
+    Configure DHCP
+
+Answer
+    ip dhcp pool <POOL_NAME>
+
+    network <NETWORK_ADDRESS> <SUBNET_MASK>
+
+    default-router <GATEWAY_IP>
+
+
+✅ Problem 5
+| Purpose                  | Answer               |
+| ------------------------ | -------------------- |
+| Enter Privileged Mode    | `enable`             |
+| Enter Configuration Mode | `configure terminal` |
+| Configure Interface      | `interface g0/0`     |
+| Turn ON Interface        | `no shutdown`        |
+| Enable RIP               | `router rip`         |
+| Show Routing Table       | `show ip route`      |
+| Test Connectivity        | `ping <IP>`          |
+
+
+✅ Problem 6
+    Router A has:
+
+    One LAN
+    One connection to Router B
+
+How many network commands are needed?
+
+Answer
+
+✅ 2
+    Because RIP advertises every directly connected network.
+
+Example:
+    network <LAN_NETWORK>
+    network <ROUTER_LINK_NETWORK>   
+
+
+✅ Problem 7
+    Find the mistake
+    router rip
+    version 2
+    network <LAN_NETWORK>
+Answer
+
+Missing:
+    no auto-summary
+
+Correct:
+    router rip
+    version 2
+    no auto-summary
+    network <LAN_NETWORK>
+
+
+✅ Problem 8
+    Arrange in the correct order
+Answer
+    enable
+    configure terminal
+    interface g0/0
+    ip address
+    no shutdown
+    router rip
+    version 2
+    network
+    show ip route
+    ping
+
+✅ Problem 9 (Viva Answers)
+
+1. What is DHCP?
+Answer: DHCP automatically assigns IP addresses to devices.
+
+2. Why use no shutdown?
+Answer: It enables (turns on) the interface.
+
+3. What does show ip route do?
+Answer: It displays the router's routing table.
+
+4. What is RIP?
+Answer: A dynamic routing protocol that automatically shares routing information between routers.
+
+5. Static vs Dynamic Routing
+| Static                       | Dynamic                     |
+| ---------------------------- | --------------------------- |
+| Manual configuration         | Automatic learning          |
+| Doesn't update automatically | Updates automatically       |
+| Suitable for small networks  | Suitable for large networks |
+
+6. Why use Version 2?
+Answer: Because RIP v2 supports VLSM and subnet masks.
+
+7. Why use no auto-summary?
+Answer: To prevent automatic classful summarization and support VLSM.
+
+8. What happens if you forget no shutdown?
+Answer: The interface remains administratively down, so devices cannot communicate.
+
+9. Why use default-router?
+Answer: It tells DHCP clients which gateway to use.
+
+10. What does the network command do in RIP?
+Answer: It advertises directly connected networks to neighboring routers.
+
+✅✅✅✅✅ Problem 10 (Full Lab)
+en
+conf t
+
+int g0/0
+ip add <IP_ADDRESS> <SUBNET_MASK>
+no shut
+
+int g0/1
+ip add <IP_ADDRESS> <SUBNET_MASK>
+no shut
+
+ip dhcp pool <POOL_NAME>
+network <NETWORK_ADDRESS> <SUBNET_MASK>
+default-router <GATEWAY_IP>
+
+router rip
+version 2
+no auto-summary
+network <LAN_NETWORK>
+network <ROUTER_LINK_NETWORK>
+
+exit
+exit
+
+show ip route
+
+ping <DESTINATION_IP>
+
+
+⭐⭐⭐⭐ 10 One-Line Viva Questions
+| Question                               | One-Line Answer                              |
+| -------------------------------------- | -------------------------------------------- |
+| What is a Router?                      | Connects different networks.                 |
+| What is DHCP?                          | Automatically assigns IP addresses.          |
+| What is RIP?                           | A dynamic routing protocol.                  |
+| What is a Gateway?                     | The path used to reach other networks.       |
+| What does `enable` do?                 | Enters privileged mode.                      |
+| What does `conf t` do?                 | Enters configuration mode.                   |
+| Why `no shutdown`?                     | Enables the interface.                       |
+| What does `show ip route` show?        | The routing table.                           |
+| What does `ping` do?                   | Tests network connectivity.                  |
+| Why use RIP instead of static routing? | RIP automatically learns and updates routes. |
