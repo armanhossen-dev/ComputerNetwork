@@ -1,0 +1,4 @@
+Testing
+
+ping <DESTINATION_IP>
+# Test Connectivity

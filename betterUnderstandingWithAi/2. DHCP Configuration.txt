@@ -1,0 +1,10 @@
+2. DHCP Configuration
+
+ip dhcp pool <POOL_NAME>
+# Create a DHCP Pool
+
+network <NETWORK_ADDRESS> <SUBNET_MASK>
+# Network from which clients receive IPs
+
+default-router <GATEWAY_IP>
+# Gateway assigned to clients

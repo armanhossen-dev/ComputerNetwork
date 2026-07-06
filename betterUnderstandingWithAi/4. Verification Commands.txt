@@ -1,0 +1,10 @@
+4. Verification Commands
+
+show ip route
+# View Routing Table
+
+show ip interface brief
+# View Interface Status
+
+show running-config
+# View Current Configuration

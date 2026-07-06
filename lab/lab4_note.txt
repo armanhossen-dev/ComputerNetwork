@@ -1,0 +1,105 @@
+====================================================
+      BASIC CISCO ROUTER COMMANDS (CHEAT SHEET)
+====================================================
+
+enable
+# Enter Privileged Mode
+
+configure terminal
+# Enter Global Configuration Mode
+
+
+----------------------------------------------------
+INTERFACE CONFIGURATION
+----------------------------------------------------
+
+interface gigabitEthernet 0/0
+# Select Interface
+
+ip address <IP> <Subnet Mask>
+# Assign IP Address to the Interface
+
+no shutdown
+# Turn ON the Interface
+
+
+----------------------------------------------------
+DHCP CONFIGURATION
+----------------------------------------------------
+
+ip dhcp pool LAN1
+# Create a DHCP Pool
+
+network <Network Address> <Subnet Mask>
+# Define which network will receive IP addresses
+
+default-router <Gateway IP>
+# Gateway that clients will use
+
+
+----------------------------------------------------
+RIP DYNAMIC ROUTING
+----------------------------------------------------
+
+router rip
+# Start RIP Routing Protocol
+
+version 2
+# Use RIP Version 2
+
+no auto-summary
+# Disable automatic summarization (Required for VLSM)
+
+network <Network Address>
+# Advertise this connected network to other routers
+
+# Add one "network" command for every directly connected network.
+
+
+----------------------------------------------------
+EXIT CONFIGURATION
+----------------------------------------------------
+
+exit
+# Exit one configuration level
+
+
+----------------------------------------------------
+CHECK CONFIGURATION
+----------------------------------------------------
+
+show ip route
+# Show Routing Table
+
+show ip interface brief
+# Show Interface Status & IP Addresses
+
+show running-config
+# Show Current Configuration
+
+
+----------------------------------------------------
+TEST CONNECTIVITY
+----------------------------------------------------
+
+ping <IP Address>
+# Test whether another device is reachable
+
+
+====================================================
+REMEMBER THE FLOW
+====================================================
+
+1. enable
+        ↓
+2. configure terminal
+        ↓
+3. Configure Interfaces
+        ↓
+4. Configure DHCP (Optional)
+        ↓
+5. Configure RIP
+        ↓
+6. show ip route
+        ↓
+7. ping

@@ -1,0 +1,19 @@
+3. Dynamic Routing (RIP)
+
+router rip
+# Enable RIP Routing
+
+version 2
+# Use RIP Version 2
+
+no auto-summary
+# Disable automatic summarization
+
+network <CONNECTED_NETWORK_1>
+# Advertise Connected Network 1
+
+network <CONNECTED_NETWORK_2>
+# Advertise Connected Network 2
+
+...
+# Add one 'network' command for every directly connected network.

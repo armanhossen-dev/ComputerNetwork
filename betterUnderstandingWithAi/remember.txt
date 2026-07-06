@@ -1,0 +1,64 @@
+en
+ ↓
+conf t
+ ↓
+int g0/0
+ ↓
+ip add
+ ↓
+no shut
+ ↓
+ip dhcp pool
+ ↓
+router rip
+ ↓
+version 2
+ ↓
+no auto-summary
+ ↓
+network
+ ↓
+exit
+ ↓
+show ip route
+ ↓
+ping
+
+//////////////////////////////////////////////////////////////////////////////
+
+| Keyword              | Think of it as...                  |
+| -------------------- | ---------------------------------- |
+| `enable`             | Become Admin                       |
+| `configure terminal` | Start configuring                  |
+| `interface`          | Pick the port                      |
+| `ip address`         | Give the port an address           |
+| `no shutdown`        | Turn the port ON                   |
+| `DHCP Pool`          | Automatic IP distributor           |
+| `default-router`     | Gateway for clients                |
+| `router rip`         | Enable dynamic routing             |
+| `network`            | Tell DHCP/RIP which network to use |
+| `show`               | Check your work                    |
+| `ping`               | Test if devices can communicate    |
+
+//////////////////////////////////////////////////////////////////////////////
+
+| Short Form       | Full Command                    | Purpose                                         |
+| ---------------- | ------------------------------- | ----------------------------------------------- |
+| `en`             | `enable`                        | Enter Privileged EXEC mode                      |
+| `conf t`         | `configure terminal`            | Enter Global Configuration mode                 |
+| `int g0/0`       | `interface gigabitEthernet 0/0` | Select an interface to configure                |
+| `ip add`         | `ip address`                    | Assign an IP address to the interface           |
+| `no shut`        | `no shutdown`                   | Turn the interface ON                           |
+| `ip dhcp pool`   | `ip dhcp pool <POOL_NAME>`      | Create a DHCP pool                              |
+| `network`        | `network <NETWORK> <MASK>`      | Define the network (DHCP) or advertise it (RIP) |
+| `default-router` | `default-router <GATEWAY>`      | Set the default gateway for DHCP clients        |
+| `router rip`     | `router rip`                    | Enable RIP routing protocol                     |
+| `ver 2`          | `version 2`                     | Use RIP Version 2                               |
+| `no auto sum`    | `no auto-summary`               | Disable automatic summarization                 |
+| `exit`           | `exit`                          | Exit the current mode                           |
+| `show ip route`  | `show ip route`                 | Display the routing table                       |
+| `show ip int br` | `show ip interface brief`       | Display interface status and IPs                |
+| `show run`       | `show running-config`           | Display the current configuration               |
+| `ping`           | `ping <IP>`                     | Test connectivity                               |
+
+//////////////////////////////////////////////////////////////////////////////
