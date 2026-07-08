@@ -207,3 +207,5 @@ ping <DESTINATION_IP>
 | What does `show ip route` show?        | The routing table.                           |
 | What does `ping` do?                   | Tests network connectivity.                  |
 | Why use RIP instead of static routing? | RIP automatically learns and updates routes. |
+
+
