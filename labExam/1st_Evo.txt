@@ -242,3 +242,89 @@ C       192.168.50.120/30 is directly connected, GigabitEthernet0/2
 L       192.168.50.122/32 is directly connected, GigabitEthernet0/2
 
 ---------------------- ---------------------- ---------------------- ---------------------- 
+####################################################################################
+Circle Topology (Ring) //if five (5) router is connected
+####################################################################################
+In a circle topology, every single router connects to exactly two neighbors. 
+Router 1 connects to Router 2 and Router 5, forming a closed loop.
+This provides redundancy: if one WAN link goes down, traffic can automatically route the other way around the loop.
+####################################################################################
+
+enable
+configure terminal
+
+hostname Router_Circle
+
+-----------# 1. Local Network Interface (LAN)
+interface GigabitEthernet0/0
+ ip address [LAN_IP] [LAN_MASK]
+ no shutdown
+exit
+
+-----------# 2. Connection to Left Neighbor (WAN 1)
+interface GigabitEthernet0/1
+ ip address [WAN1_IP] 255.255.255.252
+ no shutdown
+exit
+
+-----------# 3. Connection to Right Neighbor (WAN 2)
+interface GigabitEthernet0/2
+ ip address [WAN2_IP] 255.255.255.252
+ no shutdown
+exit
+
+-----------# 4. DHCP for Local Devices
+ip dhcp excluded-address [LAN_IP]
+ip dhcp pool LOCAL_LAN
+ network [LAN_NETWORK_ID] [LAN_MASK]
+ default-router [LAN_IP]
+exit
+
+-----------# 5. RIPv2 Routing (Includes both neighbors and LAN)
+router rip
+ version 2
+ no auto-summary
+ network [BASE_NETWORK_IP]
+exit
+
+
+####################################################################################
+Line Template - Middle Routers (Router 2, Router 3, Router 4):
+####################################################################################
+enable
+configure terminal
+
+hostname Router_Middle
+
+# 1. Local Network Interface (LAN)
+interface GigabitEthernet0/0
+ ip address [LAN_IP] [LAN_MASK]
+ no shutdown
+exit
+
+# 2. Connection to Previous Router
+interface GigabitEthernet0/1
+ ip address [WAN_PREV_IP] 255.255.255.252
+ no shutdown
+exit
+
+# 3. Connection to Next Router
+interface GigabitEthernet0/2
+ ip address [WAN_NEXT_IP] 255.255.255.252
+ no shutdown
+exit
+
+# 4. DHCP Configuration
+ip dhcp excluded-address [LAN_IP]
+ip dhcp pool LOCAL_LAN
+ network [LAN_NETWORK_ID] [LAN_MASK]
+ default-router [LAN_IP]
+exit
+
+# 5. RIPv2 Routing
+router rip
+ version 2
+ no auto-summary
+ network [BASE_NETWORK_IP]
+exit
+####################################################################################
