@@ -1,0 +1,244 @@
+Subnet Allocation (VLSM)
+
+LAN 1 (60 hosts needed → Size 64):
+    Network Address: 192.168.50.0/26 (Subnet Mask: 255.255.255.192)
+    Usable Range: 192.168.50.1 to 192.168.50.62
+    Router 1 Gateway: 192.168.50.1
+
+LAN 2 (25 hosts needed → Size 32):
+    Network Address: 192.168.50.64/27 (Subnet Mask: 255.255.255.224)
+    Usable Range: 192.168.50.65 to 192.168.50.94
+    Router 2 Gateway: 192.168.50.65
+
+LAN 3 (10 hosts needed → Size 16):
+    Network Address: 192.168.50.96/28 (Subnet Mask: 255.255.255.240)
+    Usable Range: 192.168.50.97 to 192.168.50.110
+    Router 3 Gateway: 192.168.50.97
+
+WAN Links (Point-to-Point links, Size 4 each, Mask: 255.255.255.252):
+    Router 1 to Router 2: 192.168.50.112/30 (R1: .113, R2: .114)
+    Router 2 to Router 3: 192.168.50.116/30 (R2: .117, R3: .118)
+    Router 1 to Router 3: 192.168.50.120/30 (R1: .121, R3: .122)
+
+
+Router 1 Configuration
+---------------------------------------------
+---------------------------------------------
+
+enable
+configure terminal
+
+---------------------------------------------# hostname Router1 
+
+---------------------------------------------# LAN 1 Interface
+int gig0/0
+ip add 192.168.50.1 255.255.255.192
+no shut
+exit
+
+---------------------------------------------# WAN Link to Router 2
+int gig0/1
+ip add 192.168.50.113 255.255.255.252
+no shut
+exit
+
+---------------------------------------------# WAN Link to Router 3
+int gig0/2
+ip add 192.168.50.121 255.255.255.252
+no shut
+exit
+
+---------------------------------------------# DHCP Pool for LAN 1
+ip dhcp excluded-address 192.168.50.1
+
+ip dhcp pool LAN1
+network 192.168.50.0 255.255.255.192
+default-router 192.168.50.1
+dns-server 8.8.8.8
+exit
+
+---------------------------------------------# RIPv2 Routing
+router rip
+version 2
+no auto-summary
+network 192.168.50.0
+exit
+
+
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+
+
+Router 2 Configuration
+
+enable
+configure terminal
+
+hostname Router2
+
+---------------------------------------------# LAN 2 Interface
+int gig0/0
+ip add 192.168.50.65 255.255.255.224
+no shut
+exit
+
+---------------------------------------------# WAN Link to Router 1
+int gig0/1
+ip add 192.168.50.114 255.255.255.252
+no shut
+exit
+
+---------------------------------------------# WAN Link to Router 3
+int gig0/2
+ip add 192.168.50.117 255.255.255.252
+no shut
+exit
+
+---------------------------------------------# DHCP Pool for LAN 2
+ip dhcp excluded-address 192.168.50.65
+
+ip dhcp pool LAN2
+network 192.168.50.64 255.255.255.224
+default-router 192.168.50.65
+dns-server 8.8.8.8
+exit
+
+---------------------------------------------# RIPv2 Routing
+router rip
+version 2
+no auto-summary
+network 192.168.50.0
+exit
+exit
+
+
+
+------------------------------------------------------------------------------------------
+Router 3 Configuration
+------------------------------------------------------------------------------------------
+
+
+enable
+configure terminal
+
+hostname Router3
+
+---------------------------------------------# LAN 3 Interface
+interface GigabitEthernet0/0
+ip address 192.168.50.97 255.255.255.240
+no shutdown
+exit
+
+---------------------------------------------# WAN Link to Router 2
+int gig0/1
+ip add 192.168.50.118 255.255.255.252
+no shut
+exit
+
+---------------------------------------------# WAN Link to Router 1
+int gig0/2
+ip add 192.168.50.122 255.255.255.252
+no shut
+exit
+
+---------------------------------------------# DHCP Pool for LAN 3
+ip dhcp excluded-address 192.168.50.97
+
+ip dhcp pool LAN3
+network 192.168.50.96 255.255.255.240
+default-router 192.168.50.97
+dns-server 8.8.8.8
+exit
+
+---------------------------------------------# RIPv2 Routing
+router rip
+version 2
+no auto-summary
+network 192.168.50.0
+exit
+exit
+
+---------------------- ---------------------- ---------------------- ---------------------- --
+/testing/
+
+---------------------- ---------------------- ---------------------- ---------------------- 
+in Router1
+---------------------- ---------------------- ---------------------- ---------------------- 
+
+Router>show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     192.168.50.0/24 is variably subnetted, 9 subnets, 5 masks
+C       192.168.50.0/26 is directly connected, GigabitEthernet0/0
+L       192.168.50.1/32 is directly connected, GigabitEthernet0/0
+R       192.168.50.64/27 [120/1] via 192.168.50.114, 00:00:02, GigabitEthernet0/1
+R       192.168.50.96/28 [120/1] via 192.168.50.122, 00:00:00, GigabitEthernet0/2
+C       192.168.50.112/30 is directly connected, GigabitEthernet0/1
+L       192.168.50.113/32 is directly connected, GigabitEthernet0/1
+R       192.168.50.116/30 [120/1] via 192.168.50.114, 00:00:02, GigabitEthernet0/1
+                          [120/1] via 192.168.50.122, 00:00:00, GigabitEthernet0/2
+C       192.168.50.120/30 is directly connected, GigabitEthernet0/2
+L       192.168.50.121/32 is directly connected, GigabitEthernet0/2
+
+---------------------- ---------------------- ---------------------- ---------------------- 
+in router 2
+---------------------- ---------------------- ---------------------- ---------------------- 
+Router#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     192.168.50.0/24 is variably subnetted, 9 subnets, 5 masks
+R       192.168.50.0/26 [120/1] via 192.168.50.113, 00:00:26, GigabitEthernet0/1
+C       192.168.50.64/27 is directly connected, GigabitEthernet0/0
+L       192.168.50.65/32 is directly connected, GigabitEthernet0/0
+R       192.168.50.96/28 [120/1] via 192.168.50.118, 00:00:09, GigabitEthernet0/2
+C       192.168.50.112/30 is directly connected, GigabitEthernet0/1
+L       192.168.50.114/32 is directly connected, GigabitEthernet0/1
+C       192.168.50.116/30 is directly connected, GigabitEthernet0/2
+L       192.168.50.117/32 is directly connected, GigabitEthernet0/2
+R       192.168.50.120/30 [120/1] via 192.168.50.113, 00:00:26, GigabitEthernet0/1
+                          [120/1] via 192.168.50.118, 00:00:09, GigabitEthernet0/2
+
+---------------------- ---------------------- ---------------------- ---------------------- 
+in router 2
+---------------------- ---------------------- ---------------------- ---------------------- 
+
+Router#show ip route
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - IS-IS, L1 - IS-IS level-1, L2 - IS-IS level-2, ia - IS-IS inter area
+       * - candidate default, U - per-user static route, o - ODR
+       P - periodic downloaded static route
+
+Gateway of last resort is not set
+
+     192.168.50.0/24 is variably subnetted, 9 subnets, 5 masks
+R       192.168.50.0/26 [120/1] via 192.168.50.121, 00:00:23, GigabitEthernet0/2
+R       192.168.50.64/27 [120/1] via 192.168.50.117, 00:00:02, GigabitEthernet0/1
+C       192.168.50.96/28 is directly connected, GigabitEthernet0/0
+L       192.168.50.97/32 is directly connected, GigabitEthernet0/0
+R       192.168.50.112/30 [120/1] via 192.168.50.121, 00:00:23, GigabitEthernet0/2
+                          [120/1] via 192.168.50.117, 00:00:02, GigabitEthernet0/1
+C       192.168.50.116/30 is directly connected, GigabitEthernet0/1
+L       192.168.50.118/32 is directly connected, GigabitEthernet0/1
+C       192.168.50.120/30 is directly connected, GigabitEthernet0/2
+L       192.168.50.122/32 is directly connected, GigabitEthernet0/2
+
+---------------------- ---------------------- ---------------------- ---------------------- 
