@@ -131,40 +131,40 @@ Answer
 ✅ Problem 9 (Viva Answers)
 
 1. What is DHCP?
-Answer: DHCP automatically assigns IP addresses to devices.
+    Answer: DHCP automatically assigns IP addresses to devices.
 
 2. Why use no shutdown?
-Answer: It enables (turns on) the interface.
+    Answer: It enables (turns on) the interface.
 
 3. What does show ip route do?
-Answer: It displays the router's routing table.
+    Answer: It displays the router's routing table.
 
 4. What is RIP?
-Answer: A dynamic routing protocol that automatically shares routing information between routers.
+    Answer: A dynamic routing protocol that automatically shares routing information between routers.
 
 5. Static vs Dynamic Routing
-| Static                       | Dynamic                     |
-| ---------------------------- | --------------------------- |
-| Manual configuration         | Automatic learning          |
-| Doesn't update automatically | Updates automatically       |
-| Suitable for small networks  | Suitable for large networks |
+    | Static                       | Dynamic                     |
+    | ---------------------------- | --------------------------- |
+    | Manual configuration         | Automatic learning          |
+    | Doesn't update automatically | Updates automatically       |
+    | Suitable for small networks  | Suitable for large networks |
 
 6. Why use Version 2?
-Answer: Because RIP v2 supports VLSM and subnet masks.
+    Answer: Because RIP v2 supports VLSM and subnet masks.
 
 7. Why use no auto-summary?
-Answer: To prevent automatic classful summarization and support VLSM.
+    Answer: To prevent automatic classful summarization and support VLSM.
 
 8. What happens if you forget no shutdown?
-Answer: The interface remains administratively down, so devices cannot communicate.
+    Answer: The interface remains administratively down, so devices cannot communicate.
 
 9. Why use default-router?
-Answer: It tells DHCP clients which gateway to use.
+    Answer: It tells DHCP clients which gateway to use.
 
 10. What does the network command do in RIP?
-Answer: It advertises directly connected networks to neighboring routers.
+    Answer: It advertises directly connected networks to neighboring routers.
 
-✅✅✅✅✅ Problem 10 (Full Lab)
+✅ Problem 10 (Full Lab)
 en
 conf t
 
@@ -189,10 +189,9 @@ network <ROUTER_LINK_NETWORK>
 exit
 exit
 
+//testing
 show ip route
-
 ping <DESTINATION_IP>
-
 
 ⭐⭐⭐⭐ 10 One-Line Viva Questions
 | Question                               | One-Line Answer                              |
@@ -207,5 +206,3 @@ ping <DESTINATION_IP>
 | What does `show ip route` show?        | The routing table.                           |
 | What does `ping` do?                   | Tests network connectivity.                  |
 | Why use RIP instead of static routing? | RIP automatically learns and updates routes. |
-
-
