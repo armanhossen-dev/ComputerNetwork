@@ -1,0 +1,108 @@
+R1
+
+en
+conf t
+int gig 0/0
+ip add 192.168.10.1 255.255.255.192
+no shut
+int se 0/3/0
+ip add 192.168.10.161 255.255.255.252
+no shut
+
+router rip
+version 2
+no auto summary
+network 192.168.10.0
+network 192.168.10.160
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.168.10.98
+
+R2
+
+en
+conf t
+int gig 0/0
+ip add 192.168.10.65 255.255.255.224
+no shut
+int se 0/3/0
+ip add 192.168.10.162 255.255.255.252
+no shut
+int se 0/3/1
+ip add 192.168.10.165 255.255.255.252
+no shut
+
+
+router rip
+version 2
+no auto summary
+network 192.168.10.64
+network 192.168.10.160
+network 192.168.10.164
+
+
+R3
+
+en
+conf t
+int gig 0/0
+ip add 192.168.10.97 255.255.255.224
+no shut
+int se 0/3/0
+ip add 192.168.10.166 255.255.255.252
+no shut
+int se 0/3/1
+ip add 192.168.10.169 255.255.255.252
+no shut
+
+
+router rip
+version 2
+no auto summary
+network 192.168.10.96
+network 192.168.10.168
+network 192.168.10.164
+
+
+R4
+
+en
+conf t
+int gig 0/0
+ip add 192.168.10.129 255.255.255.240
+no shut
+int se 0/3/0
+ip add 192.168.10.170 255.255.255.252
+no shut
+int se 0/3/1
+ip add 192.168.10.173 255.255.255.252
+no shut
+
+
+router rip
+version 2
+no auto summary
+network 192.168.10.128
+network 192.168.10.168
+network 192.168.10.172
+
+
+R5
+
+en
+conf t
+int gig 0/0
+ip add 192.168.10.145 255.255.255.240
+no shut
+int se 0/3/0
+ip add 192.168.10.174 255.255.255.252
+no shut
+
+
+router rip
+version 2
+no auto summary
+network 192.168.10.144
+network 192.168.10.172
