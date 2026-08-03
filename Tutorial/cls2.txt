@@ -1,10 +1,82 @@
-now connecting two different ip address device - using a router, 
-device and router is connected usnig copper cross oveer wair ( why? )
+Cisco Packet Tracer – Class 2 Notes
+1. Connecting Different Networks
 
-for laptop1 - 192.168.1.2
-for laptop2 - 192.168.2.2
+    Devices on different networks need a router to communicate.
+    Router used: Cisco 1841.
 
-use static configuration here, 
-going to the desktop -> ip configuration,
- giving custom ip address, using c class subnetmask or ip address
+    Why use a Copper Cross-Over Cable?
 
+    A Copper Cross-Over cable is used to connect similar devices (e.g., PC ↔ Router, PC ↔ PC, Router ↔ Router) in Packet Tracer. 
+    (Modern devices often support Auto-MDIX, but Packet Tracer labs commonly use a cross-over cable for these connections.)
+
+
+2. Network Setup
+
+    Laptop 1
+    IP Address: 192.168.1.2
+    Laptop 2
+    IP Address: 192.168.2.2
+
+    Configure both laptops:
+
+    Go to Desktop → IP Configuration.
+    Select Static.
+    Enter the IP Address.
+    Press Enter to auto-fill the Subnet Mask (255.255.255.0).
+
+
+3. Configure the Router
+    Open the Router → Config.
+    Under Interfaces:
+    Select FastEthernet0/0 → Turn On.
+    Select FastEthernet0/1 → Turn On.
+    The links should turn green, indicating they are active.
+
+    Assign IP addresses:
+
+    FastEthernet0/0
+    IP Address: 192.168.1.1
+    Press Enter for the Subnet Mask.
+    FastEthernet0/1
+    IP Address: 192.168.2.1
+    Press Enter for the Subnet Mask.
+
+
+4. Set the Default Gateway
+
+    On each laptop, go to Desktop → IP Configuration and set the Default Gateway:
+
+    Laptop 1
+    Default Gateway: 192.168.1.1
+    Laptop 2
+    Default Gateway: 192.168.2.1
+
+    The Default Gateway must be the IP address of the router interface connected to that network.
+
+5. Test the Connection
+    Open Desktop → Command Prompt.
+
+    Run:
+
+    ping <destination IP address>
+    If you receive Reply from..., the router is successfully routing traffic between the two networks.
+
+
+///////////////////////////from device(ip 192.168.1.2)
+Cisco Packet Tracer PC Command Line 1.0
+C:\>ping 192.168.2.2
+
+Pinging 192.168.2.2 with 32 bytes of data:
+
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=127
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=127
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=127
+Reply from 192.168.2.2: bytes=32 time<1ms TTL=127
+
+Ping statistics for 192.168.2.2:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+
+C:\>
+done!!!
