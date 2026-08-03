@@ -2,3 +2,21 @@ who are with me!
  - @armanhossen-dev
  - @?
  - @?
+
+Recommended Learning Order (Best Sequence)
+    Network Basics
+    IPv4 Addressing & Subnetting
+    Cisco IOS Commands
+    Router Configuration
+    Switch Configuration
+    VLAN
+    Trunking
+    Router-on-a-Stick
+    RIP v2
+    DHCP
+    DHCP Relay (ip helper-address)
+    ACL
+    NAT/PAT
+    Web Server & DNS
+    Troubleshooting
+    Build the full topology in Packet Tracer
