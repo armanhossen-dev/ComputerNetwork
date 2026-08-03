@@ -1,0 +1,26 @@
+https://youtu.be/YZRQpZPp4E4
+
+Cisco Packet Tracer – Class 1 Notes
+
+1. Static IP Configuration
+
+    Go to Desktop → IP Configuration.
+    Select Static.
+    Enter the IP Address.
+    Press Enter. The Subnet Mask will be filled automatically.
+    Close the window.
+
+2. Same Network vs Different Network
+
+    Devices with the same network ID (e.g., 192.168.10.x) are on the same network.
+    Devices on the same network can communicate through a switch.
+    Devices on different networks require a router to communicate.
+
+3. Ping Test
+
+    Open Desktop → Command Prompt.
+    Type:
+    ping <destination IP address>
+
+    Reply from... → Connection is successful.
+    Request timed out or Destination host unreachable → There is a network or configuration problem.

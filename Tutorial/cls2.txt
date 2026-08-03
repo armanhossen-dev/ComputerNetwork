@@ -1,0 +1,10 @@
+now connecting two different ip address device - using a router, 
+device and router is connected usnig copper cross oveer wair ( why? )
+
+for laptop1 - 192.168.1.2
+for laptop2 - 192.168.2.2
+
+use static configuration here, 
+going to the desktop -> ip configuration,
+ giving custom ip address, using c class subnetmask or ip address
+
