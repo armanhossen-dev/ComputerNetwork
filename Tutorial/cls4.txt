@@ -1,0 +1,68 @@
+now working in dynamic routing
+3 network,
+3 switch - 3 router, 2 end device each
+
+rotuer fa0/0 - switch fa0/3
+we need more port in the router so adding serial ports
+
+after that we hvae to connect those router using serial dte cable
+
+
+now giving them(router) ip address,
+r1
+fastethernet0/0 - 192.168.1.1
+                - 255.255.255.0
+                on
+r2
+fastethernet0/0 - 192.168.2.1
+r3
+fastethernet0/0 - 192.168.3.1
+
+now giving static ip configuration on each device
+ip address, sm, default ip
+
+
+now between the routers conenction first i took note ther then going to the router serial and manualy seting ip and sm
+r1
+se0/0 - 10.0.0.1
+
+r2
+se0/0 - 10.0.0.2
+se0/1 - 20.0.0.1
+
+r3
+se0/0 - 20.0.0.1
+remember to turn on it after sm
+
+## now dynamic routing using rip
+go to the router config 
+    Under routing
+        rip
+        here we just have to give the network and it will find the best path to go there, 
+        we dont have to give next hop here
+
+r1
+    10.0.0.0
+    20.0.0.0
+    192.168.2.0
+    192.168.3.0
+    also i have to set the routers ip itself
+    192.168.1.0
+r2
+    10.0.0.0
+    20.0.0.0
+    192.168.1.0
+    192.168.3.0
+    192.168.2.0
+r3
+    10.0.0.0
+    20.0.0.0
+    192.168.1.0
+    192.168.2.0
+    192.168.3.0
+
+now copying this full diagram for the 2nd diagrams
+where router1 is connected with router3 directly, (it now have more shorter path)
+so, now we have to configure this conenction
+r1 se0/1 - ip: 30.0.0.1
+r3 se0/1 - ip: 30.0.0.2
