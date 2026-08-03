@@ -22,8 +22,6 @@ int gig 0/0
 ip helper-address 192.177.192.3
 
 R2
-
-
 en
 conf t
 int gig 0/0
@@ -70,8 +68,8 @@ router rip
 version 2
 no auto-summary
 network 192.178.72.0
-network 192.178.76.0
-network 192.178.78.0
+network 192.178.76.0 -- not found
+network 192.178.78.0 -- not found
 network 192.178.80.0
 network 192.178.80.4
 network 192.178.80.36
