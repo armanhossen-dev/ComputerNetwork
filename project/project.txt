@@ -1,0 +1,596 @@
+R1
+
+
+en
+conf t
+int gig 0/0
+ip add 192.177.128.1 255.255.192.0
+no shutdown
+int se 0/0/0
+ip add 192.178.80.1 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.177.128.0
+network 192.178.80.0
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+R2
+
+
+en
+conf t
+int gig 0/0
+ip add 192.178.64.1 255.255.248.0
+no shutdown
+int se 0/1/0
+ip add 192.178.80.5 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.64.0
+network 192.178.80.4
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+R3
+ 
+
+en
+conf t
+int gig 0/0
+no ip address
+no shutdown
+int se 0/1/0
+ip add 192.178.80.6 255.255.255.252
+no shutdown
+int se 0/0/0
+ip add 192.178.80.2 255.255.255.252
+no shutdown
+int se 0/3/0
+ip add 192.178.80.37 255.255.255.252
+no shutdown
+int se 0/2/0
+ip add 192.178.80.41 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.72.0
+network 192.178.76.0
+network 192.178.78.0
+network 192.178.80.0
+network 192.178.80.4
+network 192.178.80.36
+network 192.178.80.40
+
+
+switch
+en 
+conf t
+vlan 20
+name CSE
+exit
+vlan 30
+name Software
+exit
+vlan 40
+name NFE
+exit
+
+show vlan brief
+
+int range fa 0/1-5
+switchport mode access
+switchport access vlan 20
+
+int range fa 0/6-12
+switchport mode access
+switchport access vlan 30
+
+int range fa 0/13-18
+switchport mode access
+switchport access vlan 40
+
+
+en 
+conf t
+int fa0/24
+switchport mode trunk
+
+r
+
+en
+conf t
+int gig0/0
+no shut
+int gig 0/0.20
+encapsulation dot1Q 20
+ip address 192.178.72.1 255.255.252.0
+ip helper-address 192.177.192.3
+int gig 0/0.30
+encapsulation dot1Q 30
+ip address 192.178.76.1 255.255.254.0
+ip helper-address 192.177.192.3
+int gig 0/0.40
+encapsulation dot1Q 40
+ip address 192.178.78.1 255.255.254.0
+ip helper-address 192.177.192.3
+
+
+
+R 4
+
+en
+conf t
+int se 0/2/0
+ip add 192.178.80.42 255.255.255.252
+no shutdown
+int se 0/0/0
+ip add 192.178.80.17 255.255.255.252
+no shutdown
+int se 0/3/0
+ip add 192.178.80.29 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.16
+network 192.178.80.28
+network 192.178.80.40
+
+
+R 5
+
+en
+conf t
+int gig0/0
+ip add 192.172.0.1 255.254.0.0
+no shutdown
+int se 0/3/0
+ip add 192.178.80.30 255.255.255.252
+no shutdown
+int se 0/2/0
+ip add 192.178.80.21 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.172.0.0
+network 192.178.80.20
+network 192.178.80.28
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+R 6
+
+en
+conf t
+int gig0/0
+ip add 192.175.0.1 255.255.0.0
+no shutdown
+int se 0/2/0
+ip add 192.178.80.22 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.25 255.255.255.252
+no shutdown
+int se 0/0/0
+ip add 192.178.80.77 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.175.0.0
+network 192.178.80.20
+network 192.178.80.24
+network 192.178.80.76
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+R 7
+
+en
+conf t
+int se 0/1/0
+ip add 192.178.80.26 255.255.255.252
+no shutdown
+int se 0/0/0
+ip add 192.178.80.18 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.16
+network 192.178.80.24
+
+R 8
+
+en
+conf t
+int gig0/0
+ip add 192.176.0.1 255.255.0.0
+no shutdown
+int se 0/0/0
+ip add 192.178.80.78 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.73 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.176.0.0
+network 192.178.80.72
+network 192.178.80.76
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+R 9
+
+en
+conf t
+int se 0/1/0
+ip add 192.178.80.74 255.255.255.252
+no shutdown
+int se 0/2/0
+ip add 192.178.80.69 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.68
+network 192.178.80.72
+
+R 10
+
+en
+conf t
+int gig0/0
+ip add 192.177.0.1 255.255.128.0
+no shutdown
+int se 0/2/0
+ip add 192.178.80.70 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.65 255.255.255.252
+no shutdown
+int se 0/3/0
+ip add 192.178.80.85 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.177.0.0
+network 192.178.80.64
+network 192.178.80.68
+network 192.178.80.84
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+
+R11
+
+en
+conf t
+int se 0/3/0
+ip add 192.178.80.38 255.255.255.252
+no shutdown
+int se 0/0/0
+ip add 192.178.80.33 255.255.255.252
+no shutdown
+int se 0/2/0
+ip add 192.178.80.13 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.36
+network 192.178.80.12
+network 192.178.80.32
+
+R 12
+
+en
+conf t
+int gig0/0
+ip add 192.178.32.1 255.255.224.0
+no shutdown
+int se 0/0/0
+ip add 192.178.80.34 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.9 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.32.0
+network 192.178.80.8
+network 192.178.80.32
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+R 13
+
+en
+conf t
+int gig0/0
+ip add 192.174.0.1 255.255.0.0
+no shutdown
+int se 0/0/0
+ip add 192.178.80.53 255.255.255.252
+no shutdown
+int se 0/2/0
+ip add 192.178.80.14 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.10 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.174.0.0
+network 192.178.80.8
+network 192.178.80.12
+network 192.178.80.52
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+R14
+
+en
+conf t
+int se 0/0/0
+ip add 192.178.80.54 255.255.255.252
+no shutdown
+int se 0/2/0
+ip add 192.178.80.57 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.49 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.52
+network 192.178.80.48
+network 192.178.80.56
+
+R15
+
+en
+conf t
+int gig 0/0
+ip add 192.168.1.1 255.254.0.0
+no shutdown
+int gig 0/1
+ip add 192.170.0.1 255.254.0.0
+no shutdown
+int se 0/3/0
+ip add 192.178.80.45 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.50 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.168.1.0
+network 192.170.0.0
+network 192.178.80.44
+network 192.178.80.48
+
+en
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+int gig 0/1
+ip helper-address 192.177.192.3
+
+
+R16
+
+en
+conf t
+int se 0/2/0
+ip add 192.178.80.58 255.255.255.252
+no shutdown
+int se 0/3/0
+ip add 192.178.80.46 255.255.255.252
+no shutdown
+int se 0/0/0
+ip add 192.178.80.61 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.56
+network 192.178.80.44
+network 192.178.80.60
+
+R17
+
+en
+conf t
+int se 0/0/0
+ip add 192.178.80.62 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.66 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.60
+network 192.178.80.64
+
+
+R18
+
+en
+conf t
+int se 0/3/0
+ip add 192.178.80.86 255.255.255.252
+no shutdown
+int se 0/0/0
+ip add 192.178.80.81 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.89 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.178.80.84
+network 192.178.80.80
+network 192.178.80.88
+
+R19
+
+en
+conf t
+int gig 0/0
+ip add 192.177.224.1 255.255.224.0
+no shutdown
+int se 0/0/0
+ip add 192.178.80.82 255.255.255.252
+no shutdown
+
+router rip
+version 2
+no auto-summary
+network 192.177.224.0
+network 192.178.80.80
+
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+en
+conf t
+
+access-list 1 permit 192.168.0.0 0.1.255.255
+access-list 1 permit 192.170.0.0 0.1.255.255
+access-list 1 permit 192.172.0.0 0.1.255.255
+access-list 1 permit 192.174.0.0 0.0.255.255
+access-list 1 permit 192.175.0.0 0.0.255.255
+access-list 1 permit 192.176.0.0 0.0.255.255
+access-list 1 permit 192.177.0.0 0.255.255.255
+access-list 1 permit 192.178.0.0 0.255.255.255
+
+interface s0/0/0
+ip nat inside
+exit
+
+interface g0/0
+ip nat outside
+exit
+
+ip nat inside source list 1 interface g0/0 overload
+
+R20
+
+en
+conf t
+int gig 0/0
+ip add 192.178.0.1 255.255.224.0
+no shutdown
+int se 0/0/0
+ip add 192.178.80.93 255.255.255.252
+no shutdown
+int se 0/1/0
+ip add 192.178.80.90 255.255.255.252
+no shutdown
+
+
+router rip
+version 2
+no auto-summary
+network 192.178.0.0
+network 192.178.80.88
+network 192.178.80.92
+
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+R21
+
+en
+conf t
+int gig 0/0
+ip add 192.177.192.1 255.255.224.0
+no shutdown
+int se 0/0/0
+ip add 192.178.80.94 255.255.255.252
+no shutdown
+
+
+router rip
+version 2
+no auto-summary
+network 192.177.192.0
+network 192.178.80.92
+
+conf t
+int gig 0/0
+ip helper-address 192.177.192.3
+
+
+http://www.instagram.com/instagram.html
+http://www.facebook.com/facebook.html
+http://www.whatsapp.com/whatsapp.html
+http://www.youtube.com/youtube.html
