@@ -1,0 +1,18 @@
+two router, 
+two switch,
+r1 2 pc
+r2 1server 1 pc
+
+
+ex
+ip nat inside source static 10.10.10.1 30.30.30.1
+ip nat inside source static 10.10.10.2 30.30.30.1
+
+int f0/0
+ip nat inside
+int s2/0
+ip nat outside
+ex
+
+
+more note in notebook i will write after class
