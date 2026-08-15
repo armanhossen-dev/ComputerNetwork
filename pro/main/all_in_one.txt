@@ -1,2 +1,6 @@
 connections -
-https://chatgpt.com/c/6a8028ab-03ac-83e8-93c2-c2c92886bb29
+https://chatgpt.com/c/6a8028ab-03ac-83e8-93c2-c2c92886bb29 using 2@
+
+
+new try: 
+https://chatgpt.com/c/6a80da0a-ef08-83e8-94b9-563331832840 using 6@
