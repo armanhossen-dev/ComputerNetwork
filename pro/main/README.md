@@ -100,10 +100,10 @@ This is a simulated environment only — it does not implement production-grade 
 
 | Name | Student ID | GitHub |
 |---|---|---|
-| Md. Arman Hossen Ripon | 241-15-883 | [@ArmanHossenRipon](https://github.com/armanhossen-dev)     
-| Md. Hasibur Rahman | 241-15-806 | [@username](https://github.com/Hasib55-bit)     
-| Md. Wahidur Rahman | 241-15-865 | [@username](https://github.com/Saief24)     
-| Md Sabbir Hossine | 241-15-673 | [@username](https://github.com/sabbir-hossine)      
+| Md. Arman Hossen Ripon | 241-15-883 | [@armanhossen-dev](https://github.com/armanhossen-dev)     
+| Md. Hasibur Rahman | 241-15-806 | [@Hasib55-bit](https://github.com/Hasib55-bit)     
+| Md. Wahidur Rahman | 241-15-865 | [@Saief24](https://github.com/Saief24)     
+| Md Sabbir Hossine | 241-15-673 | [@sabbir-hossine](https://github.com/sabbir-hossine)      
 
 *Dept. of Computer Science and Engineering, Daffodil International University*
 
