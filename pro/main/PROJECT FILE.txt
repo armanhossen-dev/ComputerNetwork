@@ -1,0 +1,552 @@
+SW1-HQ------------------------------------
+
+enable
+configure terminal
+
+hostname SW1-HQ
+
+vlan 10
+ name MANAGEMENT
+exit
+
+vlan 20
+ name EMPLOYEES
+exit
+
+vlan 30
+ name FINANCE
+exit
+
+vlan 40
+ name IT
+exit
+
+vlan 50
+ name ATM
+exit
+
+vlan 60
+ name SERVERS
+exit
+
+interface gigabitEthernet 0/1
+ switchport mode trunk
+exit
+
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 40
+exit
+
+interface fastEthernet 0/5
+ switchport mode access
+ switchport access vlan 50
+exit
+
+interface fastEthernet 0/6
+ switchport mode access
+ switchport access vlan 60
+exit
+
+end
+write memory
+
+
+SW2-BRANCH1--------------------------------------------------
+
+
+enable
+configure terminal
+
+hostname SW2-BRANCH1
+
+vlan 10
+ name MANAGEMENT
+exit
+
+vlan 20
+ name EMPLOYEES
+exit
+
+vlan 30
+ name FINANCE
+exit
+
+vlan 50
+ name ATM
+exit
+
+interface gigabitEthernet 0/1
+ switchport mode trunk
+exit
+
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 50
+exit
+
+end
+write memory
+
+SW3-BRANCH2----------------------------------------------------
+
+
+enable
+configure terminal
+
+hostname SW3-BRANCH2
+
+vlan 10
+ name MANAGEMENT
+exit
+
+vlan 20
+ name EMPLOYEES
+exit
+
+vlan 30
+ name FINANCE
+exit
+
+vlan 50
+ name ATM
+exit
+
+interface gigabitEthernet 0/1
+ switchport mode trunk
+exit
+
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 50
+exit
+
+end
+write memory
+
+SW4-BRANCH3--------------------------------------------
+
+
+enable
+configure terminal
+
+hostname SW4-BRANCH3
+
+vlan 10
+ name MANAGEMENT
+exit
+
+vlan 20
+ name EMPLOYEES
+exit
+
+vlan 30
+ name FINANCE
+exit
+
+vlan 50
+ name ATM
+exit
+
+interface gigabitEthernet 0/1
+ switchport mode trunk
+exit
+
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 10
+exit
+
+interface fastEthernet 0/2
+ switchport mode access
+ switchport access vlan 20
+exit
+
+interface fastEthernet 0/3
+ switchport mode access
+ switchport access vlan 30
+exit
+
+interface fastEthernet 0/4
+ switchport mode access
+ switchport access vlan 50
+exit
+
+end
+write memory
+
+R1-HQ----------------------------------------------
+
+enable
+configure terminal
+
+interface gigabitEthernet 0/0
+ no shutdown
+exit
+
+interface gigabitEthernet 0/0.10
+ encapsulation dot1Q 10
+ ip address 10.1.10.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.20
+ encapsulation dot1Q 20
+ ip address 10.1.20.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.30
+ encapsulation dot1Q 30
+ ip address 10.1.30.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.40
+ encapsulation dot1Q 40
+ ip address 10.1.40.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.50
+ encapsulation dot1Q 50
+ ip address 10.1.50.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+////  interface gigabitEthernet 0/0.60
+ encapsulation dot1Q 60
+ ip address 10.1.60.1 255.255.255.0
+exit    ////
+
+interface gigabitEthernet 0/1
+ ip address 172.16.12.1 255.255.255.252
+ no shutdown
+exit
+
+
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0
+ network 172.16.0.0
+
+end
+write memory
+
+R2-BRANCH1-----------------------------------------------------------
+
+enable
+configure terminal
+
+interface gigabitEthernet 0/0
+ no shutdown
+exit
+
+interface gigabitEthernet 0/0.10
+ encapsulation dot1Q 10
+ ip address 10.2.10.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.20
+ encapsulation dot1Q 20
+ ip address 10.2.20.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.30
+ encapsulation dot1Q 30
+ ip address 10.2.30.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.50
+ encapsulation dot1Q 50
+ ip address 10.2.50.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/1
+ ip address 172.16.12.2 255.255.255.252
+ no shutdown
+exit
+
+interface gigabitEthernet 0/2
+ ip address 172.16.23.1 255.255.255.252
+ no shutdown
+exit
+
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0
+ network 172.16.0.0
+
+end
+write memory
+
+
+R3-BRANCH2--------------------------------------------------------------
+
+
+enable
+configure terminal
+
+
+interface gigabitEthernet 0/0
+ no shutdown
+exit
+
+interface gigabitEthernet 0/0.10
+ encapsulation dot1Q 10
+ ip address 10.3.10.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.20
+ encapsulation dot1Q 20
+ ip address 10.3.20.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.30
+ encapsulation dot1Q 30
+ ip address 10.3.30.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.50
+ encapsulation dot1Q 50
+ ip address 10.3.50.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/1
+ ip address 172.16.23.2 255.255.255.252
+ no shutdown
+exit
+
+interface gigabitEthernet 0/2
+ ip address 172.16.34.1 255.255.255.252
+ no shutdown
+exit
+
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0
+ network 172.16.0.0
+
+end
+write memory
+
+R4-BRANCH3------------------------------------------
+
+enable
+configure terminal
+
+
+interface gigabitEthernet 0/0
+ no shutdown
+exit
+
+interface gigabitEthernet 0/0.10
+ encapsulation dot1Q 10
+ ip address 10.4.10.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.20
+ encapsulation dot1Q 20
+ ip address 10.4.20.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.30
+ encapsulation dot1Q 30
+ ip address 10.4.30.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/0.50
+ encapsulation dot1Q 50
+ ip address 10.4.50.1 255.255.255.0
+ ip helper-address 10.1.60.10
+exit
+
+interface gigabitEthernet 0/1
+ ip address 172.16.34.2 255.255.255.252
+ no shutdown
+exit
+
+router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0
+ network 172.16.0.0
+
+end
+write memory
+
+
+SERVER --------
+
+IP Address:      10.1.60.10
+Subnet Mask:     255.255.255.0
+Default Gateway: 10.1.60.1
+DNS Server:      10.1.60.10
+
+--------------------------------------------------------------------------------------
+
+
+|            # | Pool Name       | Network      | Default Gateway | Start IP       | Subnet Mask   | Max Users |
+| -----------: | --------------- | ------------ | --------------- | -------------- | ------------- | --------: |
+|       **HQ** |                 |              |                 |                |               |           |
+|            1 | `HQ-MANAGEMENT` | 10.1.10.0/24 | **10.1.10.1**   | **10.1.10.11** | 255.255.255.0 |        50 |
+|            2 | `HQ-EMPLOYEES`  | 10.1.20.0/24 | **10.1.20.1**   | **10.1.20.11** | 255.255.255.0 |        50 |
+|            3 | `HQ-FINANCE`    | 10.1.30.0/24 | **10.1.30.1**   | **10.1.30.11** | 255.255.255.0 |        50 |
+|            4 | `HQ-IT`         | 10.1.40.0/24 | **10.1.40.1**   | **10.1.40.11** | 255.255.255.0 |        50 |
+|            5 | `HQ-ATM`        | 10.1.50.0/24 | **10.1.50.1**   | **10.1.50.11** | 255.255.255.0 |        50 |
+| **Branch 1** |                 |              |                 |                |               |           |
+|            6 | `B1-MANAGEMENT` | 10.2.10.0/24 | **10.2.10.1**   | **10.2.10.11** | 255.255.255.0 |        50 |
+|            7 | `B1-EMPLOYEES`  | 10.2.20.0/24 | **10.2.20.1**   | **10.2.20.11** | 255.255.255.0 |        50 |
+|            8 | `B1-FINANCE`    | 10.2.30.0/24 | **10.2.30.1**   | **10.2.30.11** | 255.255.255.0 |        50 |
+|            9 | `B1-ATM`        | 10.2.50.0/24 | **10.2.50.1**   | **10.2.50.11** | 255.255.255.0 |        50 |
+| **Branch 2** |                 |              |                 |                |               |           |
+|           10 | `B2-MANAGEMENT` | 10.3.10.0/24 | **10.3.10.1**   | **10.3.10.11** | 255.255.255.0 |        50 |
+|           11 | `B2-EMPLOYEES`  | 10.3.20.0/24 | **10.3.20.1**   | **10.3.20.11** | 255.255.255.0 |        50 |
+|           12 | `B2-FINANCE`    | 10.3.30.0/24 | **10.3.30.1**   | **10.3.30.11** | 255.255.255.0 |        50 |
+|           13 | `B2-ATM`        | 10.3.50.0/24 | **10.3.50.1**   | **10.3.50.11** | 255.255.255.0 |        50 |
+| **Branch 3** |                 |              |                 |                |               |           |
+|           14 | `B3-MANAGEMENT` | 10.4.10.0/24 | **10.4.10.1**   | **10.4.10.11** | 255.255.255.0 |        50 |
+|           15 | `B3-EMPLOYEES`  | 10.4.20.0/24 | **10.4.20.1**   | **10.4.20.11** | 255.255.255.0 |        50 |
+|           16 | `B3-FINANCE`    | 10.4.30.0/24 | **10.4.30.1**   | **10.4.30.11** | 255.255.255.0 |        50 |
+|           17 | `B3-ATM`        | 10.4.50.0/24 | **10.4.50.1**   | **10.4.50.11** | 255.255.255.0 |        50 |
+
+
+
+-------------------------------------------------------------------------
+show ip interface gigabitEthernet 0/0.20
+show ip interface brief
+show ip protocols
+
+show vlan brief
+show interfaces trunk
+
+
+------------------------------------------------------------------------
+
+**DNS SERVER-BANK :
+
+Name: bank.local
+Address: 10.1.60.10
+
+
+Name: www.bank.local
+Address: 10.1.60.10
+
+---------
+http://10.1.60.10
+http://bank.local
+
+=========================================
+
+
+
+**HTTP:
+SECURE BANKING NETWORK
+
+Welcome to National Banking Corporation
+
+Head Office
+Branch 1
+Branch 2
+Branch 3
+
+Services:
+- Online Banking
+- ATM Services
+- Account Management
+- Customer Support
+```
+
+--------====================================
+
+AP wireless
+
+interface fastEthernet 0/8
+ switchport mode access
+ switchport access vlan 20
+exit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
